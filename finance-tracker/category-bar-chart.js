@@ -1,46 +1,68 @@
-var categoryDom = document.getElementById("category-bar-chart");
+var categoryDom = document.getElementById('category-bar-chart');
 var categoryChart = echarts.init(categoryDom);
 var categoryOption;
-var categorySeries = []
-var yearlyCategoryData = category_stats[2]
-for(var i = 0; i < yearlyCategoryData.length; i++){
+var categorySeries = [];
+var yearlyCategoryData = category_stats[2];
+for (var i = 0; i < yearlyCategoryData.length; i++) {
   var temp = {
     name: yearlyCategoryData[i][0],
     type: 'bar',
     stack: 'total',
     emphasis: {
-      focus: 'series'
+      focus: 'series',
     },
-    data: yearlyCategoryData[i][1]
-  }
-  categorySeries.push(temp)
+    data: yearlyCategoryData[i][1],
+  };
+  categorySeries.push(temp);
 }
 
-categoryOption = {  
+categoryOption = {
   tooltip: {
     trigger: 'axis',
-    axisPointer: {            // Use axis to trigger tooltip
-      type: 'shadow'        // 'shadow' as default; can also be 'line' or 'shadow'
-    }
+    axisPointer: {
+      // Use axis to trigger tooltip
+      type: 'shadow', // 'shadow' as default; can also be 'line' or 'shadow'
+    },
   },
   legend: {
     orient: 'horizontal',
-    left: 'center'
+    left: 'center',
   },
   grid: {
     left: '3%',
     right: '4%',
-    bottom: '3%',
-    containLabel: true
+    containLabel: true,
   },
   xAxis: {
-    type: 'value'
+    type: 'value',
   },
   yAxis: {
     type: 'category',
-    data: ['withdrawal', 'utilities', 'travel', 'restaurants', 'personal care', 'mobile', 'loans', 'investments', 'home', 'healthcare', 'groceries', 'general', 'gas', 'fee', 'fine', 'e transfers', 'entertainment', 'electronics', 'education', 'clothing', 'automotive']
+    data: [
+      'withdrawal',
+      'utilities',
+      'travel',
+      'restaurants',
+      'personal care',
+      'mobile',
+      'loans',
+      'investments',
+      'home',
+      'healthcare',
+      'groceries',
+      'general',
+      'gas',
+      'fee',
+      'fine',
+      'e transfers',
+      'entertainment',
+      'electronics',
+      'education',
+      'clothing',
+      'automotive',
+    ],
   },
-  series: categorySeries
+  series: categorySeries,
 };
 
 if (categoryOption && typeof categoryOption === 'object') {
@@ -51,6 +73,6 @@ if (categoryOption && typeof categoryOption === 'object') {
     inputField.value = category;
     inputField.dispatchEvent(new Event('click'));
     inputField.dispatchEvent(new Event('focus'));
-    inputField.dispatchEvent(new KeyboardEvent('keyup',{'key':'Enter'}));
+    inputField.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
   });
 }

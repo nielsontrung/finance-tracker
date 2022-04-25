@@ -1,125 +1,115 @@
-// pie chart
-var pieDom = document.getElementById("pie-chart");
+var pieDom = document.getElementById('pie-chart');
 var pieChart = echarts.init(pieDom);
-var datasetsource = [];
-var categories = [];
-categories.push('category')
-for (var i = start_year; i <= end_year; i++) {
-    categories.push(''+i);
+var datasetSource = [];
+
+var datasetSourceHeader = [];
+datasetSourceHeader.push('category');
+for (var i = startYear; i <= endYear; i++) {
+  datasetSourceHeader.push('' + i);
 }
 
-var yearly_category_stats = category_stats[1]
-datasetsource.push(categories);
-for (var i = 0; i < yearly_category_stats.length; i++) {
-    if (yearly_category_stats[i][0] === "deposit" || yearly_category_stats[i][0] === "government" || yearly_category_stats[i][0]=== "other"){
+var categoricalExpenses;
 
-    }else{
-        datasetsource.push(yearly_category_stats[i])
-    }
+datasetSource.push(datasetSourceHeader);
+
+// transactions with earnings
+const earnings = ['deposit', 'government', 'other'];
+
+for (var i = 0; i < categoricalExpenses.length; i++) {
+  if (!earnings.includes(categoricalExpenses[i][0])) {
+    datasetSource.push(categoricalExpenses[i]);
+  }
 }
 
-var years = []
-for(let i = start_year; i <= end_year; i++){
-    years.push(i);
+function getSeriesConfig() {
+  var series = [];
+  for (var i = 0; i < categories.length; i++) {
+    series.push({
+      type: 'line',
+      smooth: true,
+      seriesLayoutBy: 'row',
+      emphasis: { focus: 'series' },
+    });
+  }
+  series.push({
+    type: 'pie',
+    id: 'pie',
+    radius: '35%',
+    center: ['55%', '30%'],
+    emphasis: {
+      focus: 'self',
+    },
+    label: {
+      formatter: '{b}: {@' + startYear + '} ({d}%)',
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow',
+      },
+      formatter: () => {
+        console.log(this);
+        return '{b0}: {c0}<br />{b1}: {c1}';
+      },
+    },
+    encode: {
+      itemName: 'category',
+      value: '' + startYear,
+      tooltip: '' + startYear,
+    },
+  });
+
+  return series;
 }
 
 var categoryOption;
-var startYear = '' + start_year
-setTimeout(function(){
-    categoryOption = {
-        legend: {
-            left: 'left',
-            orient: 'vertical'
+var startYear = '' + startYear;
+setTimeout(function () {
+  categoryOption = {
+    dataset: {
+      source: datasetSource,
+    },
+    grid: { top: '65%' },
+    legend: {
+      left: 'left',
+      orient: 'vertical',
+    },
+    series: getSeriesConfig(),
+    tooltip: {
+      trigger: 'axis',
+      showContent: false,
+    },
+    xAxis: { type: 'category' },
+    yAxis: { gridIndex: 0 },
+  };
+
+  pieChart.on('updateAxisPointer', function (event) {
+    var xAxisInfo = event.axesInfo[0];
+    if (xAxisInfo) {
+      var dimension = xAxisInfo.value + 1;
+      pieChart.setOption({
+        series: {
+          id: 'pie',
+          label: {
+            formatter: '{b}: {@[' + dimension + ']} ({d}%)',
+          },
+          encode: {
+            value: dimension,
+            tooltip: dimension,
+          },
         },
-        tooltip: {
-            trigger: 'axis',
-            showContent: false
-        },
-        dataset: {
-            source: datasetsource
-        },
-        title: {
-            text: 'Yearly Spending per Category',
-            // subtext: 'example',
-            left: 'center'
-        },
-        xAxis: {type: 'category'},
-        yAxis: {gridIndex: 0},
-        grid: {top: '65%'},
-        series: [
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: {focus: 'series'}},
-            {
-                type: 'pie',
-                id: 'pie',
-                radius: '35%',
-                center: ['55%', '30%'],
-                emphasis: {
-                    focus: 'series'
-                },
-                label: {
-                    formatter: '{b}: {@'+ startYear +'} ({d}%)'
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {            // Use axis to trigger tooltip
-                        type: 'shadow'        // 'shadow' as default; can also be 'line' or 'shadow'
-                    }
-                },
-                encode: {
-                    itemName: 'category',
-                    value: ''+start_year,
-                    tooltip: ''+start_year
-                }
-            }
-        ]
-    };
-    
-    pieChart.on('updateAxisPointer', function (event) {
-        var xAxisInfo = event.axesInfo[0];
-        if (xAxisInfo) {
-            var dimension = xAxisInfo.value + 1;
-            pieChart.setOption({
-                series: {
-                    id: 'pie',
-                    label: {
-                        formatter: '{b}: {@[' + dimension + ']} ({d}%)'
-                    },
-                    encode: {
-                        value: dimension,
-                        tooltip: dimension
-                    }
-                }
-            });
-            let inputField = document.getElementsByTagName('input')[0];
-            inputField.value =  years[xAxisInfo.value];
-            inputField.dispatchEvent(new Event('click'));
-            inputField.dispatchEvent(new Event('focus'));
-            inputField.dispatchEvent(new KeyboardEvent('keyup',{'key':'Enter'}));
-        }
-    });
-    pieChart.setOption(categoryOption);
+      });
+      let inputField = document.getElementsByTagName('input')[0];
+      inputField.value = Number(xAxisInfo.value) + Number(startYear);
+      console.log(event);
+      inputField.dispatchEvent(new Event('click'));
+      inputField.dispatchEvent(new Event('focus'));
+      inputField.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
+    }
+  });
+  pieChart.setOption(categoryOption);
 });
 
 if (categoryOption && typeof categoryOption === 'object') {
-    pieChart.setOption(categoryOption);
+  pieChart.setOption(categoryOption);
 }
