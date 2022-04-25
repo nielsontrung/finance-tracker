@@ -1,22 +1,10 @@
 import os
+import calendar
 
-months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+months = [calendar.month_abbr[i] for i in range(1, 13)]
 
-months_dict = {
-    "Jan": "-01-",
-    "Feb": "-02-",
-    "Mar": "-03-",
-    "Apr": "-04-",
-    "May": "-05-",
-    "Jun": "-06-",
-    "Jul": "-07-",
-    "Aug": "-08-",
-    "Sep": "-09-",
-    "Oct": "-10-",
-    "Nov": "-11-",
-    "Dec": "-12-"
-}
+months_dict = {calendar.month_abbr[i]: "-" +
+                str(i).zfill(2) + "-" for i in range(1, 13)}
 
 
 def get_statement_start_period(file):
@@ -46,7 +34,7 @@ def rename_file(path):
         if file_name.find(month) != -1:
             new_file_name = file_name.replace(month, months_dict[month])
             os.rename(str(parent) + '\\' + str(file_name),
-                      str(parent) + '\\' + new_file_name)
+                        str(parent) + '\\' + new_file_name)
 
 
 def rename_files(path):
@@ -61,15 +49,15 @@ def main():
     filtered_files = []
     for file in files:
         new_file_name = ""
-        if file.find("Credit Card Statement-6910") != -1:
+        if file.find("Credit Card Statement-1234") != -1:
             new_file_name = file.replace(
-                "Credit Card Statement-6910", "451029XXXXXX6910")
-        elif file.find("Chequing Statement-1666") != -1:
+                "Credit Card Statement-1234", "1234XXXXXX5678")
+        elif file.find("Chequing Statement-1234") != -1:
             new_file_name = file.replace(
-                "Chequing Statement-1666", "01259XXX1666")
-        elif file.find("Savings Statement-5313") != -1:
+                "Chequing Statement-1234", "1234XXXXXX5678")
+        elif file.find("Savings Statement-1234") != -1:
             new_file_name = file.replace(
-                "Savings Statement-5313", "01259XXX5313")
+                "Savings Statement-1234", "1234XXXXXX5678")
         for month in months:
             if file.find(month) != -1:
                 new_file_name = new_file_name.replace(
@@ -80,4 +68,4 @@ def main():
                     '-')] + "-" + statement_start_period + new_file_name[new_file_name.find('-'):len(new_file_name)]
                 filtered_files.append(new_file_name)
                 os.rename('\\'.join((file_path, file)),
-                          '\\'.join((file_path, new_file_name)))
+                            '\\'.join((file_path, new_file_name)))
