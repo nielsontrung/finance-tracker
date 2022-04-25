@@ -269,22 +269,18 @@ To further customize transactions based on categories from vendors or businesses
 
 The code below is a sample of the category.json file, in this example we insert "new restaurant" in the restaurants category between "mcdonalds" and "nandos". When we run the program after making these changes to category.json file, any transaction description containing the keyword "new restaurant" will be assigned "restaurants" as its category.
 
+```JSON
     {
-        ...
         "personal care" : [
-            ...
             "salon",
-            ...
         ],
         "restaurants": [
-            ...
             "mcdonalds",
             "new restaurant",
             "nandos",
-            ...
         ],
-        ...
     }
+```
 
 ### Adding a new category:
 
@@ -293,21 +289,16 @@ The code below is a sample of the category.json file, in this example we add a n
 ```JSON
     {
         "personal care" : [
-            ...
             "salon",
-            ...
         ],
         "new category": [
             "something"
         ],
         "restaurants": [
-            ...
             "mcdonalds",
             "new restaurant",
             "nandos",
-            ...
         ],
-        ...
     }
 ```
 
@@ -317,19 +308,13 @@ To remove a key word from a category or a whole category simply delete it from c
 
 ```JSON
      {
-        ...
         "personal care" : [
-            ...
             "salon",
-            ...
         ],
         "restaurants": [
-            ...
             "mcdonalds",
             "nandos",
-            ...
         ],
-        ...
     }
 ```
 
