@@ -4,7 +4,7 @@ from stats import make_stats_js
 import datetime
 
 CSV_HEADER = 'id, account, date, year, month, description, category, amount \n'
-CSV_FILE = 'example.csv'
+CSV_FILE = 'all-transactions.csv'
 
 
 def gen_random_transactions():
@@ -39,7 +39,7 @@ def gen_random_transactions():
 
 
 def main():
-    # gen_random_transactions()
+    gen_random_transactions()
     make_stats_js(CSV_FILE, 2014, int(datetime.date.today().year))
 
 

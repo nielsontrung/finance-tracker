@@ -4,11 +4,14 @@ import calendar
 months = [calendar.month_abbr[i] for i in range(1, 13)]
 
 months_dict = {calendar.month_abbr[i]: "-" +
-                str(i).zfill(2) + "-" for i in range(1, 13)}
+               str(i).zfill(2) + "-" for i in range(1, 13)}
 
 CHEQUINGS_ACCOUNT = "1234XXXXXX5678"
 SAVINGS_ACCOUNT = "1234XXXXXX5678"
 CREDIT_ACCOUNT = "1234XXXXXX5678"
+
+# TODO update to handle new filename format
+
 
 def get_statement_start_period(file):
     file = file.replace('.pdf', '')
@@ -32,7 +35,7 @@ def rename_file(path):
         if file_name.find(month) != -1:
             new_file_name = file_name.replace(month, months_dict[month])
             os.rename(str(parent) + '\\' + str(file_name),
-                        str(parent) + '\\' + new_file_name)
+                      str(parent) + '\\' + new_file_name)
 
 
 def rename_files(path):
@@ -66,4 +69,4 @@ def main():
                     '-')] + "-" + statement_start_period + new_file_name[new_file_name.find('-'):len(new_file_name)]
                 filtered_files.append(new_file_name)
                 os.rename('\\'.join((file_path, file)),
-                            '\\'.join((file_path, new_file_name)))
+                          '\\'.join((file_path, new_file_name)))
