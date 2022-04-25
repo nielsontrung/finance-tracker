@@ -6,24 +6,22 @@ months = [calendar.month_abbr[i] for i in range(1, 13)]
 months_dict = {calendar.month_abbr[i]: "-" +
                 str(i).zfill(2) + "-" for i in range(1, 13)}
 
+CHEQUINGS_ACCOUNT = "1234XXXXXX5678"
+SAVINGS_ACCOUNT = "1234XXXXXX5678"
+CREDIT_ACCOUNT = "1234XXXXXX5678"
 
 def get_statement_start_period(file):
     file = file.replace('.pdf', '')
     tokens = file.split('-')
-    year = int(tokens[1])
-    month = int(tokens[2])
-    date = tokens[3]
+    year, month, date = [int(i) for i in tokens]
     if(month == 1):
         year -= 1
         month = 12
     else:
         month -= 1
     year = str(year)
-    month = str(month)
-    if(len(month) < 2):
-        month = month.zfill(2)
-    statement_start_period = '-'.join((year, month, date))
-    return statement_start_period
+    month = str(month).zfill(2)
+    return '-'.join((year, month, date))
 
 
 def rename_file(path):
@@ -49,15 +47,15 @@ def main():
     filtered_files = []
     for file in files:
         new_file_name = ""
-        if file.find("Credit Card Statement-1234") != -1:
+        if file.find("Credit Card Statement") != -1:
             new_file_name = file.replace(
-                "Credit Card Statement-1234", "1234XXXXXX5678")
-        elif file.find("Chequing Statement-1234") != -1:
+                "Credit Card Statement-1234", CREDIT_ACCOUNT)
+        elif file.find("Chequing Statement") != -1:
             new_file_name = file.replace(
-                "Chequing Statement-1234", "1234XXXXXX5678")
-        elif file.find("Savings Statement-1234") != -1:
+                "Chequing Statement-1234", CHEQUINGS_ACCOUNT)
+        elif file.find("Savings Statement") != -1:
             new_file_name = file.replace(
-                "Savings Statement-1234", "1234XXXXXX5678")
+                "Savings Statement-1234", SAVINGS_ACCOUNT)
         for month in months:
             if file.find(month) != -1:
                 new_file_name = new_file_name.replace(
