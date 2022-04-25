@@ -1,28 +1,26 @@
 # Finance Tracker / Visualizer
-A financial tracker / visualization tool used to gain insights about spending habits, trends, and patterns over varying transaction periods. This project was inspired due to deficiencies in RBC's MyFinanceTracker and my interest in personal finance developed during quarantine. I collected my own personal e statements from my RBC account and used the parser function from tika, a Python parsing module. Which was used to extract the contents from my credit and debit e statements. Further string parsing techniques were used to extract transaction details and stored in a csv file. After compiling the e statements into a csv file, I was able to create meaningful data visualizations. Using echarts.js a data visualization library. The application should be usable if you are a RBC client. To use this application follow the instructions outlined in the [Getting Started](#getting-started) section.
+A financial tracker / visualization tool used to gain insights about spending habits, trends, and patterns over varying transaction periods. This project was inspired due to inconsistencies in RBC's MyFinanceTracker for my personal accounts and my interest in personal finance developed during quarantine. The application visualizes yearly spending across categories and months and also shows a table of transactions which can be filtered by interacting with the data visualizations. The application should be usable if you are a RBC client. To use this application follow the instructions outlined in the [Getting Started](#getting-started) section.
  
 ## Disclaimer
 Due to the structure and format of RBCs debit e statements the amounts recorded in the compiled csv file for debit transactions are not as accurate as initially intended. Certain deposits and withdrawals are not recorded with their appropriate value and create inconsistencies in total debit account balances. This application should instead be used to gain insights about your personal spending habits and trends based on different categories and periods.
  
 # Live Demo
-To try a live demo of the application click the following link: https://nielsontrung.github.io/finance-tracker/. To download a local copy of the demo download the git repo and open the index.html file in the finance-tracker folder. Instructions in the [Getting Started](#getting-started) section also outlines how to use the project.
- 
+To try a live demo of the application by clicking the link below: 
+- https://nielsontrung.github.io/finance-tracker/. 
+
 ### Project Outline
 - [Project Manifest](#project-manifest)
 - [Implementation](#implementation)
     - [Extracting Data](#extracting-data)
     - [Visualizing Data](#visualizing-data)
 - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Files](#files)
     - [E Statements](#e-statements)
     - [Category json](#category-json)
         - [Categories](#categories)
         - [Customization](#customization)
-    - [CSV](#files)
+    - [CSV](#csv)
     - [Execution](#execution)
     - [Visualization](#visualization)
-    - [Statistics](#statistics)
  
 ## Project Manifest
 The following is a list of files in the finance-tracker project folder and a brief description of each file.
@@ -83,11 +81,11 @@ progressbar.py
 - a command line interface progress bar used to visualize the progress of the application's execution.
  
 read_credit_pdf.py
-- used to parse rbc credit e-statements. Used to extract the transaction date, posting date, transaction id, business details, and the amount of the transaction
+- used to parse rbc credit e-statements. Used to extract the transaction date, description, category, and the amount.
  
 read_debit_pdf.py
-- used to parse rbc debit e-statements. Used to extract the transaction date, posting date, transaction id, business details, and the amount of the transaction
- 
+- used to parse rbc debit e-statements. Used to extract the transaction date, description, category, and the amount.
+
 rename.py
 - used to rename e statements files that were downloaded from RBC, in order to use string parsing techniques to extract the year and
 start and end month of a transaction.
@@ -105,7 +103,7 @@ table.py
 The following sections outline the implementation of the project. Listing different libraries and modules and describing how they were used in the application.
  
 ## Extracting Data
-The raw contents of the e statements were extracted using the **parser** method from the **[tika](https://github.com/chrismattmann/tika-python)** Python module. Further string parsing techniques from Python's standard library and Python's regular expression module **[re](https://docs.python.org/3/library/re.html)** were used to extract the account id, number, date, description, category, and amount of each transaction.
+The raw contents of the e statements were extracted using the **parser** method from the **[tika](https://github.com/chrismattmann/tika-python)** Python module. Further string parsing techniques from Python's standard library and Python's regular expression module **[re](https://docs.python.org/3/library/re.html)** were used to extract the transaction account number, date, description, category, and amount.
  
 ### Python Libraries
 - tika: https://github.com/chrismattmann/tika-python
@@ -114,17 +112,16 @@ The raw contents of the e statements were extracted using the **parser** method 
 ## Visualizing Data
 The visualization portion of this project was implemented using echarts.js, a free open source JavaScript data visualization library and bootstrap 4 for styling the html table.
  
-### JavaScript Library
+### JavaScript Libraries
 - echarts.js: https://echarts.apache.org/en/index.html
 ### CSS Library
 - bootstrap 4: https://getbootstrap.com/docs/4.0/getting-started/introduction/
  
 # Getting Started
-To get started, navigate to a desired folder where the application will be downloaded. Next open command prompt in the current working directory / folder. This can be done by entering 'cmd' in the file explorer's address bar. After completing the previous step a cmd window should be open with the path of the folder. Next type the following command to download the git repo:
+To get started, navigate to a desired folder where the application will be downloaded. Next click the link below to download the project:
+- https://github.com/nielsontrung/finance-tracker/archive/refs/heads/main.zip
  
-    git clone https://github.com/nielsontrung/financial_visualizer.git
- 
-The required files for this application are all in the finance-tracker folder and all the other files may be deleted after downloading the git repository. Next, follow the rest of the steps outlined in the following sections.
+The required files for this application are located in the finance-tracker folder, all the python files with the .py file extension may be deleted after downloading the git repository. Next, follow the rest of the steps outlined in the following sections.
  
 - [E Statements](#e-statements)
 - [Category JSON](#category-json)
@@ -142,76 +139,79 @@ To download your RBC e statements follow the instructions outlined in the link b
  
 https://help.sportsinteraction.com/hc/en-us/articles/360001774447-RBC-Bank-Statement-Instructions
  
-After downloading all of your e statements put them inside the finance-tracker folder you downloaded in the previous step. The application will only work if there are e statements or a csv file called "all-transactions.csv" in the project folder. The next section outlines how the applications categorizes transactions and how you can customize categories to generate a csv file personalized to your transactions history.
+After downloading all of your e statements put them inside the finance-tracker folder you downloaded in the previous step. The application will only work if there are e statements or a csv file called "all-transactions.csv" in the project folder. The next section outlines how the applications categorizes transactions and how you can customize categories to generate a csv file personalized to your own transaction history.
  
 ## Category json
-This file contains information used to assign a category to a transaction based on keywords stored in it. The following section includes a list of different categories in category.json. The categories stored in category.json are arbitrary and primarily based on categories from RBC's MyFinanceTracker application. The categories in category.json can be changed based on your own transaction history. Keywords and categories can be added or removed based on your own transaction history. Examples at the end of this section will show you how to add new keywords and categories or delete them.
+This file contains information used to assign a category to a transaction based on keywords stored in it. The following section includes a list of different categories in category.json. The categories stored in category.json are arbitrary and primarily based on categories from RBC's MyFinanceTracker application. The categories in category.json can be changed based on your own transaction by editing keywords and categories. Examples at the end of this section will show you how to add, edit and delete keywords and categories.
  
 ## Categories
 The following is a list of the categories in category.json and examples of keywords in each category. The list of keywords were collected from my own transaction history and may not appear in your own "all-transactions.csv". Steps outlined in the [Customization](#customization) section shows you how to add, edit, and remove keywords and categories.
  
 automotive
 - transactions related to automotive purchases (ex: acura, honda,...)
- 
+
 clothing
 - transactions related to clothing purchases (ex: h&m,...)
- 
+
 deposit
 - transactions related to deposits
- 
+
 education
 - transactions related to educational purchases (ex: university,...)
- 
+
 electronics
 - transactions related to electronics purchases (ex: best buy,...)
- 
+
 entertainment
 - transactions related to entertainment purchases (ex: minecraft,...)
- 
+
 e transfers
 - transactions related to e-transfers
- 
+
 fee
 - transactions related to fee payments
- 
+
 gas
 - transactions related to gas purchases (ex: 7 eleven,...)
- 
+
 general merchandise
 - transactions related to general merchandise purchases (ex: amazon,...)
- 
+
 groceries
 - transactions related to grocery purchases (ex: real cdn supers,...)
- 
+
 healthcare
 - transactions related to healthcare transactions (ex: dental, pharmacy,...)
- 
+
 home improvement
 - transactions related to home improvement transactions (ex: rona, lowes,...)
- 
+
 loans
 - transactions related to loan payments
- 
+
 mobile
 - transactions related to mobile payments (ex: fido, koodo,...)
- 
+
 other
 - other transactions
- 
+
 personal care
 - transactions related to personal care (ex: salon, hair,...)
- 
+
 restaurants
 - transactions related to restaurant purchases (ex: mcdonalds,...)
- 
+
 travel
 - transactions related to travel expenses (ex: airport,...)
- 
+
 utilities
 - transactions related to utility expenses (ex: enmax,...)
+
+withdrawal
+- transactions related to withdrawals (ex: withdrawal,...)
  
 ## Customization
-To further customize transactions based on categories from vendors or businesses you frequent edit the category.json file by simply adding the desired keyword or category. New keywords or categories should be added based on the specificness of the new keyword or category. More specific keywords and categories should be added above less specific keywords or categories. This ensures that the more specific keywords and categories are checked before more general keywords and categories.
+To further customize transactions based on categories from vendors or businesses you frequent edit the category.json file by simply adding the desired keyword or category. New keywords or categories should be added based on the specificness of the new keyword or category. More specific keywords and categories should be added above less specific keywords or categories. This ensures that the more specific keywords and categories are checked before more general keywords and categories. The following sections will show you how category.json is formatted and examples of how to add and delete keywords and categories. In the following examples '...' denotes the rest of the file not shown in the example.
  
 ### Adding a new keyword to a category:
 The code below is a sample of the category.json file, in this example we insert "new restaurant" in the restaurants category between "mcdonalds" and "nandos". When we run the program after making these changes to category.json file, any transaction description containing the keyword "new restaurant" will be assigned "restaurants" as its category.
@@ -255,7 +255,7 @@ The code below is a sample of the category.json file, in this example we add a n
         ...
     }
     
-### Deleting a keyword or category example:
+### Deleting a keyword or category:
 To remove a key word from a category or a whole category simply delete it from category.json. In this example we remove the "new restaurant" keyword from the "restaurants" category we added in the first example. We also remove the "new category" category we had added in the previous example.
  
      {
@@ -275,22 +275,22 @@ To remove a key word from a category or a whole category simply delete it from c
     }
  
 ## CSV
-In order to visualize your transaction data a csv file is required. My application parses RBC e statements that can be downloaded from your online account. Alternatively a csv file constructed with the same format as shown below should also be suitable as input for the application. The attributes in the csv are as follows: id, account, date, description, category, and amount.
+In order to visualize your transaction data a csv file is required. The application parses RBC e statements that can be downloaded from your online account. Alternatively a csv file constructed with the same format as shown below should also be suitable as input for the application. The attributes in the csv are as follows: transaction id, account, date, description, category, and amount.
  
 id
-- The id of the transaction used to cross reference transactions in e statements. For debit transactions RBC doesn't record a unique id, in order to compensate for this the uuid python module was used to create a unique id that is used to uniquely identify transactions in the visualization portion of the project.
+- The id of the transaction assigned based on the order of appearance the when the e statements are parsed from the e statements. Unique transaction ids are not recorded for debit transactions to compensate for this a sequentially increasing id is assigned to each transaction.
  
-account number
+account
 - The account number of the transaction.
  
 date
-- The date of the transaction stored in universal time coordinate (utc) format (ex: YYYY-MM-DD).
+- The transaction date recorded in universal time coordinate (utc) format (ex: YYYY-MM-DD).
  
 category
 - An arbitrary list of categories based on categories from RBC's finance tracker (ex; automotive, clothing, electronics, entertainment,...).
  
 amount
-- The amount of the transaction, all transactions recorded for credit accounts are negative. Payments to credit accounts are handled when debit e-statements are parsed. For a debit transaction a negative amount denotes a withdrawal, a positive amount denotes a deposit. Disclaimer due to the file format and structure of RBCs debit e statements there are some inaccuracies in values recorded for some debit transactions.
+- The transaction amount, all transactions recorded for credit accounts are negative. Payments between accounts are assumed to be payments to a credit account and are not included to prevent duplicate payments previously recorded in credit transactions. For a debit transaction a negative amount denotes a withdrawal and a positive amount denotes a deposit. Disclaimer due to the file format and structure of RBCs debit e statements there are some inaccuracies in values recorded for some debit transactions.
  
 ### example.csv
  
@@ -320,14 +320,15 @@ Make sure you have followed the instructions in the previous sections before exe
 #### Program During Execution
     Progress: |████████------------------------------------------| 17.7% Complete
     
-6. The program recursively searches the directory where it is saved and looks for RBC e statements.
-7. The program converts the filenames of all the e-statements found from the previous step. Renamed as the following (ex: 12345XXXXXX12345-2014-Mar12-2014-Apr12 to 12345XXXXXX12345-2014-03-12-2014-04-12). This step is required for better organization and to extract the transaction period of the e-statement.
+6. The program recursively searches the current folder where it is saved and looks for RBC e statements.
+7. The program converts the filenames of all the e-statements found from the previous step. Renaming e statements (ex: 12345XXXXXX12345-2014-Mar12-2014-Apr12 to 12345XXXXXX12345-2014-03-12-2014-04-12). This step is required for better organization and to extract the transaction period of the e-statement.
 8. The program parses every e statement in the project folder and writes every transaction to the "all-transactions.csv" file.
 9. The program creates the following files data.json, data.js, and table.js. data.json contains data about yearly spending across different categories and months. data.js contains data from data.json stored as JavaScript variables which will be used by category-bar-chart.js, pie-chart.js, and moth-bar-chart.js. table.js contains a JavaScript variable named "table" this variable is a string representing all-transactions.csv as a html table dom element.
-10. The program finishes execution and closes the following files all-transactions.csv, data.js, data.json, and table.js.
+10. The program finishes execution closes and saves the following files all-transactions.csv, data.js, data.json, and table.js.
 #### Program Finishing Execution
     Progress: |██████████████████████████████████████████████████| 100.0% Complete
  
 ## Visualization
-After compiling the csv file from the previous section, you should now be able to open the index.html file. Here, you will be able to see a visualization showing your yearly spending across different categories and transaction periods. You can also view your transaction history on the left of the page in the html table. Check out a live demo of the application by clicking the following link below: https://nielsontrung.github.io/finance-tracker/.
+After compiling the csv file from the previous section, you should now be able to open the index.html file. Here, you will be able to see a visualization showing your yearly spending across different categories and transaction periods. You can also view your transaction history on the left of the page in the html table. The transaction table can also be filtered by entering a search in the search input field or by interacting with the charts on the right side of the page. The visualized data can also be filtered by clicking on the labels. Selecting the labels update the corresponding charts. The transaction table can also sorted by clicking the table headers this will sort the table alphabetically or in ascending or descending order based on the data stored in each column. The visualization is best expereinced when in full screen on a desktop or large screen device. Try out a live demo of the application by clicking the following link below: 
+- https://nielsontrung.github.io/finance-tracker/.
  
