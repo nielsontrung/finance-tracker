@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" charset="utf-8" />
+    <title>Finance Tracker</title>
+    <!-- including ECharts file -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.0/dist/echarts.min.js"></script> -->
+    <script src="echarts/echarts.min.js"></script>
+
+    <!-- include jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- bootstrap css -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- data tables library -->
+    <link href="./DataTables/datatables.min.css" rel="stylesheet" />
+    <script src="./DataTables/datatables.min.js"></script>
+
+    <!-- ECharts and DataTables data -->
+    <script src="./data/data.js"></script>
+    <script src="./data/table-data.js"></script>
+    <script src="./data/table.js"></script>
+
+    <!-- custom styles -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div id="chart-div" class="col">
+          <div id="pie-chart" class="width_50" style="height: 1000px"></div>
+          <div id="sankey-chart" class="width_50" style="height: 600px"></div>
+          <div
+            id="monthly-earnings-bar-chart"
+            class="width_50"
+            style="height: 600px"
+          ></div>
+          <div
+            id="monthly-expenses-bar-chart"
+            class="width_50"
+            style="height: 600px"
+          ></div>
+          <div id="area-chart" class="width_50" style="height: 600px"></div>
+          <div
+            id="line-race-chart"
+            class="width_50"
+            style="height: 600px"
+          ></div>
+        </div>
+        <div id="table-div">
+          <table id="table" class="display"></table>
+        </div>
+      </div>
+    </div>
+    <div></div>
+    <!-- include custom scripts -->
+    <script src="./data/pie-chart.js"></script>
+    <script src="./data/bar-chart-monthly-earnings.js"></script>
+    <script src="./data/bar-chart-monthly-expenses.js"></script>
+    <script src="./data/area-chart.js"></script>
+    <script src="./data/line-race-chart.js"></script>
+    <script src="./data/sankey-chart.js"></script>
+  </body>
+</html>

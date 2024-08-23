@@ -1,0 +1,30 @@
+html {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+#table-div {
+  width: 50vw;
+}
+
+#table_wrapper {
+  /* margin: auto; */
+  cursor: default;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0; /* required */
+  
+}
+
+
+#width_50 {
+    width: 50vw;
+}
+
+
+
